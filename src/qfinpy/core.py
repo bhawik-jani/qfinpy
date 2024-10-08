@@ -480,9 +480,9 @@ class Folio:
     def extra_repr(self):
         return ''
     def __repr__(self, n=1):
-        repr_str = f'{type(self).__name__}(qty={self.qty}{',' if self.extra_repr() else ''} {self.extra_repr()})\n    '
+        repr_str = f"{type(self).__name__}(qty={self.qty}{',' if self.extra_repr() else ''} {self.extra_repr()})\n    "
         for folio in self._folios:
-            repr_str += n*'    ' + f'{folio.__repr__(n+1)}'
+            repr_str += n*'    ' + f"{folio.__repr__(n+1)}"
         return repr_str
     def __neg__(self):
         temp = copy.deepcopy(self)
