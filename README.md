@@ -1,5 +1,5 @@
 # Introduction
-QFinPy is a powerful, easy-to-use Python library designed for quantitative finance research, analysis, and modeling. It provides a set of tools for creating options payoff diagrams, pricing derivatives, constructing portfolios, and time series analysis.
+QFinPy is a powerful, easy-to-use Python library designed for quantitative finance research, analysis, and modeling. It provides a set of tools for creating options payoff diagrams, pricing derivatives, Monte Carlo Simulations, time series analysis, and  constructing portfolios.
 
 # Installation
 pip install qfinpy
@@ -191,7 +191,7 @@ imp_vol = qf.implied_volatility('C', 2.00, 50, 32/365, 51.25, 0.05)
 print('Implied volatility = ', imp_vol)
 ```
 
-    Implied volatility =  0.18692284347556545
+    Implied volatility =  0.1869228434755648
 
 
 ## Portfolio Optimization
@@ -222,7 +222,7 @@ result.x
 
 
 
-    array([0.53009593, 0.35639214, 0.11351199])
+    array([0.53009593, 0.35639213, 0.113512  ])
 
 
 
@@ -244,8 +244,8 @@ x = qf.normal(10)
 print(x)
 ```
 
-    [ 0.12502007 -0.14634077  1.94506428  1.38135765  0.75619115 -1.0535261
-      1.62612142  0.15359853  0.93958341 -1.32247783]
+    [-0.29769324 -0.54351292 -0.34507348  0.48251412  0.22500892  0.87064283
+     -0.50450492  0.30324753  1.15314968 -0.67326597]
 
 
 
@@ -256,7 +256,7 @@ plt.plot(qf.normal(100, mu=10.0, sigma=3.0))
 
 
 
-    [<matplotlib.lines.Line2D at 0x76e02d1d4bc0>]
+    [<matplotlib.lines.Line2D at 0x7f10ff9951c0>]
 
 
 
@@ -274,7 +274,7 @@ plt.plot(qf.normal(mu=np.linspace(0,10,100), sigma=1.0))
 
 
 
-    [<matplotlib.lines.Line2D at 0x76e02cff8950>]
+    [<matplotlib.lines.Line2D at 0x7f1155fdf3b0>]
 
 
 
@@ -292,7 +292,7 @@ plt.plot(qf.normal(mu=0, sigma=np.linspace(0,10,100)))
 
 
 
-    [<matplotlib.lines.Line2D at 0x76e02cde72f0>]
+    [<matplotlib.lines.Line2D at 0x7f1100347650>]
 
 
 
@@ -310,7 +310,7 @@ plt.plot(qf.normal(mu=np.linspace(0,10,100), sigma=np.linspace(1,5,100)))
 
 
 
-    [<matplotlib.lines.Line2D at 0x76e02d42f890>]
+    [<matplotlib.lines.Line2D at 0x7f11003605f0>]
 
 
 
@@ -328,10 +328,10 @@ print(x)
 ```
 
     (2, 10)
-    [[-0.228296   -1.44717506  0.61397438  0.5034225   1.30331253  0.81899568
-       0.29335272  0.41455905 -0.87034792 -1.24794744]
-     [ 1.38845671 -1.71477321 -0.57896718 -0.13346501  1.19695654  0.15601694
-      -0.85700046  0.89089686 -0.86163866  0.37558427]]
+    [[ 0.84284109  0.08477504 -2.43723961  0.61270538  0.9801093  -0.52259732
+       1.38707595 -0.73983371 -0.66849634  1.46785926]
+     [ 0.13333635 -0.90268586  0.56882097  1.1391172   0.2177926   0.41764538
+       0.1300695  -0.21647265 -0.32227474 -1.62438587]]
 
 
 
@@ -359,10 +359,10 @@ print(x)
 ```
 
     (2, 10)
-    [[ 0.27708532  1.37296767  1.23605607  2.20384309  0.27086975  2.48326163
-       0.24278957  1.14429597  0.44646873  0.9791976 ]
-     [ 0.45751257  2.1814746  -1.31716061  1.59821137  1.16358675  0.56363219
-       2.0968775   0.16555374  2.46605888  0.73515972]]
+    [[ 0.77333346  0.17601791 -0.01866713  0.46400412  1.51313251 -0.90469188
+       0.13323023  1.54159995  0.21370799  1.8932842 ]
+     [-0.35885229  0.88045584 -0.19873425  1.01257887  0.45947712 -0.20288216
+       0.84080326  2.95304337  0.45257102  1.14213169]]
 
 
 
@@ -396,8 +396,8 @@ x = qf.lognormal(10)
 print(x)
 ```
 
-    [2.26366853 2.60529974 1.35796926 1.85062364 2.29085821 5.42070832
-     1.75876349 1.16463658 0.33037263 0.92489459]
+    [0.50643209 0.23344932 4.29740853 0.77359027 0.72411853 0.21328177
+     3.03007789 0.69455528 3.15378758 0.43217616]
 
 
 
@@ -407,6 +407,27 @@ print(x.shape)
 ```
 
     (5, 7, 2, 10)
+
+
+#### Student's t dist
+
+
+```python
+x = qf.students_t(100, df=4, mu=2, sigma=4)
+plt.plot(x)
+```
+
+
+
+
+    [<matplotlib.lines.Line2D at 0x7669ed65be30>]
+
+
+
+
+    
+![png](README_files/README_47_1.png)
+    
 
 
 ### Random Walk
@@ -426,13 +447,13 @@ plt.plot(x)
 
 
 
-    [<matplotlib.lines.Line2D at 0x76e02c9f9190>]
+    [<matplotlib.lines.Line2D at 0x7f11551a0ef0>]
 
 
 
 
     
-![png](README_files/README_48_1.png)
+![png](README_files/README_50_1.png)
     
 
 
@@ -451,13 +472,13 @@ plt.plot(x)
 
 
 
-    [<matplotlib.lines.Line2D at 0x76e02c96bef0>]
+    [<matplotlib.lines.Line2D at 0x7f115516fec0>]
 
 
 
 
     
-![png](README_files/README_50_1.png)
+![png](README_files/README_52_1.png)
     
 
 
@@ -494,13 +515,13 @@ plt.plot(sim[0])
 
 
 
-    [<matplotlib.lines.Line2D at 0x76e02c374c20>]
+    [<matplotlib.lines.Line2D at 0x7f11550620c0>]
 
 
 
 
     
-![png](README_files/README_54_1.png)
+![png](README_files/README_56_1.png)
     
 
 
@@ -510,7 +531,7 @@ value = qf.present_value(np.maximum(0, sim[:,-1] - strike).mean(), rf_rate, t)
 print(value)
 ```
 
-    12.51337611387072
+    12.453812729122065
 
 
 Since intermediate values of geometric random walk are not required for option value calculation, we can use lognormal distribution to save time and memory. In this case standard deviations of both log returns and normal returns are same, but (the mean of log returns) = (mean of normal returns) - (variance of returns)/2
@@ -534,10 +555,17 @@ value = qf.present_value(np.maximum(0, sim - strike).mean(), rf_rate, t)
 print('option value = ', value)
 ```
 
-    option value =  12.491332565313673
+    option value =  12.527805286619587
 
 
 ## Time Series Analysis
+
+
+```python
+import qfinpy as qf
+import numpy as np
+import matplotlib.pyplot as plt
+```
 
 
 ```python
@@ -557,7 +585,7 @@ print(w.shape)
 ```
 
     (5, 150)
-    (5, 147)
+    (5, 150)
 
 
 
@@ -568,13 +596,13 @@ plt.plot(e[0])
 
 
 
-    [<matplotlib.lines.Line2D at 0x76e02c654680>]
+    [<matplotlib.lines.Line2D at 0x763c1f1878c0>]
 
 
 
 
     
-![png](README_files/README_63_1.png)
+![png](README_files/README_66_1.png)
     
 
 
@@ -586,13 +614,13 @@ plt.plot(w[0])
 
 
 
-    [<matplotlib.lines.Line2D at 0x76e02c4d8ad0>]
+    [<matplotlib.lines.Line2D at 0x763c1f1b7140>]
 
 
 
 
     
-![png](README_files/README_64_1.png)
+![png](README_files/README_67_1.png)
     
 
 
@@ -606,7 +634,7 @@ print(w_m.shape)
 ```
 
     (2, 150)
-    (2, 147)
+    (2, 150)
 
 
 ### Autoregrassive AR(p)
@@ -619,7 +647,7 @@ x = tsa.ar(w, phi, mu=0.0)
 print(x.shape)
 ```
 
-    (5, 147)
+    (5, 150)
 
 
 
@@ -630,13 +658,13 @@ plt.plot(x[0])
 
 
 
-    [<matplotlib.lines.Line2D at 0x76e024a593a0>]
+    [<matplotlib.lines.Line2D at 0x763c1dd10bf0>]
 
 
 
 
     
-![png](README_files/README_68_1.png)
+![png](README_files/README_71_1.png)
     
 
 
@@ -647,12 +675,76 @@ x_m = tsa.ar(w_m, phi_m)
 print(x_m.shape)
 ```
 
-    (2, 147)
+    (2, 150)
 
 
-### Inverse MA and AR
+### GARCH(r,s)
+gh(series, w, alpha, beta, x0=None, e0=None, mu=0, initial_var=None): \
+(returns a tuple containing the series and the volatility)
+
+
+```python
+g = tsa.gh(x, 0.01, 0.3, 0.6, mu=0)
+g[0].shape
+```
+
+
+
+
+    (5, 150)
+
+
+
+
+```python
+plt.plot(g[0][0])
+```
+
+
+
+
+    [<matplotlib.lines.Line2D at 0x763c1542e630>]
+
+
+
+
+    
+![png](README_files/README_75_1.png)
+    
+
+
+### Inverse GARCH, MA and AR
 ma_inverse(series, theta, mu=0.0) \
-ar_inverse(series, phi, mu=0.0)
+ar_inverse(series, phi, mu=0.0) \
+gh_inverse(series, w, alpha, beta, mu=0, initial_var=None)
+
+
+```python
+inverse_g = tsa.gh_inverse(g[0], 0.01, 0.3, 0.6, mu=0)
+print(inverse_g[0].shape)
+```
+
+    (5, 149)
+
+
+
+```python
+plt.plot(x[0,1:])
+plt.plot(inverse_g[0][0])
+```
+
+
+
+
+    [<matplotlib.lines.Line2D at 0x763c153880e0>]
+
+
+
+
+    
+![png](README_files/README_78_1.png)
+    
+
 
 
 ```python
@@ -660,19 +752,19 @@ inverse_x = tsa.ar_inverse(x, phi)
 print(inverse_x.shape)
 ```
 
-    (5, 147)
+    (5, 148)
 
 
 
 ```python
-plt.plot(w[0])
+plt.plot(w[0][2:])
 plt.plot(inverse_x[0])
 plt.show()
 ```
 
 
     
-![png](README_files/README_72_0.png)
+![png](README_files/README_80_0.png)
     
 
 
@@ -694,14 +786,137 @@ plt.show()
 
 
     
-![png](README_files/README_74_0.png)
+![png](README_files/README_82_0.png)
+    
+
+
+#### Example: ARMA(1,1) + GARCH(1,1) fit using the inverse functions
+
+
+```python
+# simulated data
+e = tsa.gh(qf.normal(2000), w=0.1, alpha=0.3, beta=0.6)[0]
+w = tsa.ma(e, theta=0.8)
+data = tsa.ar(w, phi=0.5, mu=2.0)
+```
+
+
+```python
+plt.plot(data)
+```
+
+
+
+
+    [<matplotlib.lines.Line2D at 0x7669f85c7b90>]
+
+
+
+
+    
+![png](README_files/README_85_1.png)
+    
+
+
+
+```python
+from scipy.optimize import minimize
+```
+
+
+```python
+def arma_1_1_garch_1_1_log_likelihood(params, data):
+    # Parameters
+    mu, phi, theta, omega, alpha, beta = params
+
+    N = len(data)
+    w = tsa.ar_inverse(data-mu, phi=phi)
+    e = tsa.ma_inverse(w, theta=theta)
+    z, sigma2 = tsa.gh_inverse(e, w=omega, alpha=alpha, beta=beta)
+
+    log_likelihood = -0.5 * N * np.log(2 * np.pi)
+    log_likelihood -= 0.5 * np.sum(np.log(sigma2) + z**2)
+    return -log_likelihood  # Negative log-likelihood for minimization
+
+# Initial parameter guess 
+initial_params = [0.0, 0.1, 0.1, 0.1, 0.1, 0.1]
+
+bounds = [
+    (None, None),  # mu
+    (-1, 1),       # phi1
+    (None, None),  # theta12
+    (1e-8, None),  # omega > 0
+    (1e-8, 1),     # 0 <= alpha <= 1
+    (1e-8, 1)      # 0 <= beta <= 1
+]
+
+y = data
+# Optimize log-likelihood
+result = minimize(arma_1_1_garch_1_1_log_likelihood, initial_params, args=(y,), bounds=bounds)
+fitted_params = result.x
+
+print("Fitted Parameters:", fitted_params)
+print("fitted_log_likelihood = ", - result.fun)
+print("AIC = ", -2 * -result.fun + 2 * len(result.x))
+print("BIC = ", -2 * -result.fun + len(result.x) * np.log(y.size).item())
+```
+
+    Fitted Parameters: [2.00207328 0.51945168 0.79517484 0.08202248 0.33269634 0.60103715]
+    fitted_log_likelihood =  -2575.529401410069
+    AIC =  5163.058802820138
+    BIC =  5196.66421757739
+
+
+### Autovariance and Autocorrelation
+acovf(series, nlags) \
+acf(series, nlags, qstat=False, dof_offset=0)
+
+
+```python
+tsa.acf(data, nlags=5, qstat=True)
+```
+
+
+
+
+    (array([1.        , 0.74846902, 0.36215007, 0.15446444, 0.06303216,
+            0.03298029]),
+     array([1122.09319475, 1384.92367546, 1432.76167471, 1440.73166649,
+            1442.91469901]),
+     array([0., 0., 0., 0., 0.]))
+
+
+
+
+```python
+data_acf = tsa.acf(data, nlags=15)
+plt.stem(data_acf, markerfmt='')
+```
+
+
+
+
+    <StemContainer object of 3 artists>
+
+
+
+
+    
+![png](README_files/README_90_1.png)
     
 
 
 #### Other Tools
 sliding_window(a, window) \
 normal_cdf(x, mu=0.0, sigma=1.0) \
-normal_pdf(x, mu=0.0, sigma=1.0) 
+normal_pdf(x, mu=0.0, sigma=1.0) \
+chi2_cdf(x, df) \
+chi2_pdf(x, df) \
+trimmed_mean(series, trim=None, axis=-1) \
+mad(series, calib=1.4826, axis=-1): Mean absolute deviation \
+pct_change(series, axis=-1) \
+log_change(series, axis=-1) \
+
 
 
 ```python
@@ -756,6 +971,18 @@ qf.normal_pdf(0, mu=0.0, sigma=1.0)
 
 
     0.3989422804014327
+
+
+
+
+```python
+qf.chi2_cdf(5, 4)
+```
+
+
+
+
+    np.float64(0.7127025048163542)
 
 
 
